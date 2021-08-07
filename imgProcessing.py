@@ -34,7 +34,7 @@ def preprocess_input(img_path):
     img = cv2.cvtColor(cla, cv2.COLOR_GRAY2RGB)
     img_arr = np.asarray(img)[:, :, :3] / 255.
     img_tensor = np.expand_dims(img_arr, 0)
-    
+    print(img_tensor.shape)
     return img_arr, img_tensor
 
 def generate_cam(model, img_path, class_idx):
@@ -126,10 +126,10 @@ for b in props:
     w = bbox[3] - bbox[1]
     h = bbox[2] - bbox[0]
 
-    heat_img[bbox[1]:bbox[0], bbox[3]:bbox[2]] = cam[bbox[1]:bbox[0], bbox[3]:bbox[2]]
+    # heat_img[bbox[1]:bbox[0], bbox[3]:bbox[2]] = cam[bbox[1]:bbox[0], bbox[3]:bbox[2]]
 
-    # rect = patches.Rectangle((xs, ys), w, h, linewidth=2, edgecolor='r', facecolor='none')
-    # ax.add_patch(rect)
+    rect = patches.Rectangle((xs, ys), w, h, linewidth=2, edgecolor='r', facecolor='none')
+    ax.add_patch(rect)
     
 cv2.imwrite('img.jpeg', img*255)
 cv2.imwrite('cam.jpeg', cam*255)
